@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>前端补充示例</title>
+    <!-- 引入 layui 和 jQuery -->
+    <script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/layui/2.7.6/css/layui.min.css">
+    <script src="https://cdn.staticfile.org/layui/2.7.6/layui.min.js"></script>
+    <!-- Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div class="layui-container" style="margin-top: 30px;">
+        <h2>Vue 列表渲染示例</h2>
+        <div id="content">
+            <ul class="layui-list">
+                <li class="layui-list-item" v-for="(item, index) in msgs">
+                    {{ index + 1 }}. {{ item }}
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <h2>Layui 弹出层示例</h2>
+        <button class="layui-btn" id="msgBtn">普通提示框</button>
+        <button class="layui-btn layui-btn-normal" id="alertBtn">信息提示窗</button>
+        <button class="layui-btn layui-btn-warm" id="tipsBtn">提示层</button>
+        <button class="layui-btn layui-btn-danger" id="loadBtn">加载中</button>
+    </div>
+
+    <script>
+        // Vue 实例
+        new Vue({
+            el: "#content",
+            data: {
+                msgs: [
+                    "锄禾日当午",
+                    "大桥和苍井",
+                    "停车坐爱枫林晚",
+                    "一墙红杏出墙来",
+                    "哈哈哈哈哈哈哈"
+                ]
+            }
+        });
+
+        // layui 弹出层功能
+        layui.use(['layer'], function(){
+            var layer = layui.layer;
+
+            $("#msgBtn").click(function(){
+                layer.msg("普通提示消息");
+            });
+
+            $("#alertBtn").click(function(){
+                layer.alert("这是一个信息提示窗", {icon: 1});
+            });
+
+            $("#tipsBtn").click(function(){
+                layer.tips("这是一个提示层", "#tipsBtn", {tipsMore: true, tips: 1});
+            });
+
+            $("#loadBtn").click(function(){
+                var index = layer.load(1, {time: 2000}); // 2秒后自动关闭
+            });
+        });
+    </script>
+</body>
+</html>
